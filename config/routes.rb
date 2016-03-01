@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   resources :users, only: [:create, :show]
-  resources :posts
-  resources :comments, except: [:index]
-  resources :post_votes, only: [:create]
-  resources :comment_votes, only: [:create]
+  resources :posts do
+    resources :post_votes, only: [:create]
+    resources :comments, except: [:index, :show, :new] do
+      resources :comment_votes, only: [:create]
+    end
+  end
   resource :session, only: [:create]
 
   root 'posts#index'

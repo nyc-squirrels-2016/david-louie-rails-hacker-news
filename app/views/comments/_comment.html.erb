@@ -2,5 +2,9 @@
   <fieldset>
     <legend><%=link_to comment.user.username, comment.user%></legend>
     <%= comment.content%>
+  <%if comment.user == current_user%>
+    <button><%=link_to 'Edit', edit_post_comment_path(comment.post, comment)%></button>
+    <button><%= link_to 'Delete', [comment.post, comment], method: :delete%></button>
+  <%end%>
   </fieldset>
 </div>
