@@ -1,4 +1,10 @@
 <h1><%= link_to @post.title, @post.url%></h1>
+Votes: <%= @post.vote_count %>
+<%if logged_in? && !current_user.voted_post?(@post)%>
+  <%=form_for [@post, @post_vote] do |f|%>
+      <%=f.submit 'Upvote'%>
+  <%end%>
+<%end%>
 <%if @post.user == current_user%>
   <button><%=link_to 'Edit', edit_post_path%></button>
   <button><%= link_to 'Delete', @post, method: :delete%></button>

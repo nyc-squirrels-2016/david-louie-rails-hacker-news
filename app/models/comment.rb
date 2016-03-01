@@ -4,4 +4,8 @@ class Comment < ActiveRecord::Base
   has_many :comment_votes
 
   validates :content, presence: true
+
+  def vote_count
+    self.post_votes.count
+  end
 end

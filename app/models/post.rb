@@ -5,4 +5,8 @@ class Post < ActiveRecord::Base
 
   validates :title, presence: true
   validates :url, presence: true
+
+  def vote_count
+    self.post_votes.count
+  end
 end

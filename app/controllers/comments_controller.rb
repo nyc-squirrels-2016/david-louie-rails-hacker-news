@@ -6,14 +6,14 @@ class CommentsController < ApplicationController
       @comment.post_id = params[:post_id]
       @comment.save
     end
-    redirect_to "/posts/#{params[:post_id]}"
+    redirect_to :back
   end
 
   def edit
     @comment = Comment.find(params[:id])
     @post = @comment.post
     unless @comment.user == current_user
-      redirect_to "/posts/#{@post.id}"
+      redirect_to :back
     end
   end
 
@@ -23,9 +23,9 @@ class CommentsController < ApplicationController
     if @comment.user == current_user
       @comment.content = params[:comment][:content]
       @comment.save
-      redirect_to "/posts/#{@post.id}"
+      redirect_to :back
     else
-      redirect_to "/posts/#{@post.id}"
+      redirect_to :back
     end
   end
 
@@ -34,9 +34,9 @@ class CommentsController < ApplicationController
     post = comment.post
     if comment.user == current_user
       comment.destroy
-      redirect_to "/posts/#{post.id}"
+      redirect_to :back
     else
-      redirect_to post_comments_path
+      redirect_to :back
     end
   end
 end

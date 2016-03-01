@@ -7,4 +7,12 @@ class User < ActiveRecord::Base
   validates :username, presence: true
   validates :email, presence: true, uniqueness: true
   has_secure_password
+
+  def voted_post?(post)
+    post.post_votes.pluck(:user_id).include?(self.id)
+  end
+
+  def voted_comment?(comment)
+    post.post_votes.pluck(:user_id).include?(self.id)
+  end
 end

@@ -1,12 +1,14 @@
 class PostsController < ApplicationController
   def index
     @posts = Post.order(updated_at: :desc)
+    @post_vote = PostVote.new
   end
 
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
     @comments = @post.comments
+    @post_vote = PostVote.new
   end
 
   def new
@@ -26,7 +28,7 @@ class PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
     unless @post.user == current_user
-      redirect_to post_path
+      redirect_to :back
     end
   end
 
@@ -34,9 +36,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.user == current_user
       @post.update(get_params)
-      redirect_to post_path
+      redirect_to :back
     else
-      redirect_to post_path
+      redirect_to :back
     end
   end
 
@@ -46,7 +48,7 @@ class PostsController < ApplicationController
       @post.destroy
       redirect_to root_path
     else
-      redirect_to post_path
+      redirect_to :back
     end
   end
 
