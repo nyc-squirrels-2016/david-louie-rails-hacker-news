@@ -13,6 +13,6 @@ class User < ActiveRecord::Base
   end
 
   def voted_comment?(comment)
-    post.post_votes.pluck(:user_id).include?(self.id)
+    comment.comment_votes.pluck(:user_id).include?(self.id)
   end
 end

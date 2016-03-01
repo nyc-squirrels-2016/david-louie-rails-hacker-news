@@ -6,6 +6,6 @@ class Comment < ActiveRecord::Base
   validates :content, presence: true
 
   def vote_count
-    self.post_votes.count
+    self.comment_votes.count
   end
 end

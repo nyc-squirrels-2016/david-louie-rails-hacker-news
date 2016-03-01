@@ -9,6 +9,7 @@ class PostsController < ApplicationController
     @comment = Comment.new
     @comments = @post.comments
     @post_vote = PostVote.new
+    @comment_vote = CommentVote.new
   end
 
   def new
