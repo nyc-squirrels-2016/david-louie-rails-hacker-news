@@ -1,0 +1,17 @@
+<div>
+  <fieldset>
+    <legend><%=link_to comment.user.username, comment.user%></legend>
+    <%= comment.content%><br>
+    Votes: <%= comment.vote_count%>
+    <%if logged_in? && !current_user.voted_comment?(comment)%>
+      <%=form_for [@post, comment, @comment_vote] do |f|%>
+        <%=f.submit 'Upvote'%>
+      <%end%>
+    <%end%>
+  <%if comment.user == current_user%>
+    <button><%=link_to 'Edit', edit_post_comment_path(comment.post, comment)%></button>
+    <button><%= link_to 'Delete', [comment.post, comment], method: :delete%></button>
+  <%end%>
+
+  </fieldset>
+</div>

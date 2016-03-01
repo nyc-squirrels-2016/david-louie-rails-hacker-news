@@ -1,0 +1,14 @@
+<h1> Posts </h1>
+
+<%= link_to "Write a new Post", new_post_path%>
+
+<%@posts.each do |post|%>
+  <h2><%= link_to post.title, post.url%> by <%=link_to post.user.username, "users/#{post.user_id}"%> </h2>
+  <%= link_to 'Comments', post%><br>
+  Votes: <%= post.vote_count %>
+  <%if logged_in? && !current_user.voted_post?(post)%>
+  <%=form_for [post, @post_vote] do |f|%>
+      <%=f.submit 'Upvote'%>
+  <%end%>
+<%end%>
+<%end%>
